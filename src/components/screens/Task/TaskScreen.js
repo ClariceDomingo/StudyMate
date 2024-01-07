@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, ScrollView, TextInput } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, TextInput, ImageBackground } from "react-native";
 import TaskList from "../../forms/TaskList";
 import TaskModal from "../../forms/TaskModal";
 import styles from "../../../config/TaskStyles";
+
+const backgroundImage = require("../../../../assets/emptyImage.png");
 
 const TaskScreen = () => {
   const [tasks, setTasks] = useState([]);
@@ -158,7 +160,7 @@ const TaskScreen = () => {
           ]}
           onPress={() => handleFilterByCategory("All")}
         >
-          <Text style={styles.categoryText}>All</Text>
+          <Text style={[styles.categoryText, selectedCategory === "All" && {color: "#fff"}]}>All</Text>
         </TouchableOpacity>
 
         {/* Display other categories */}
@@ -171,7 +173,7 @@ const TaskScreen = () => {
             ]}
             onPress={() => handleFilterByCategory(category)}
           >
-            <Text style={styles.categoryText}>{category}</Text>
+            <Text style={[styles.categoryText, selectedCategory === category && { color: "#fff" }]}>{category}</Text>
           </TouchableOpacity>
         ))}
         
@@ -179,12 +181,35 @@ const TaskScreen = () => {
     );
   };
 
+  const renderTaskList = () => {
+    if (filteredTasks.length === 0) {
+      // Render background image when there are no tasks
+      return (
+        <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
+          {/* You can customize the style of the background image container */}
+        </ImageBackground>
+      );
+    }
+
+    // Render TaskList component with filtered tasks
+    return (
+      <TaskList
+        tasks={filteredTasks}
+        handleEditTask={handleEditTask}
+        handleToggleCompletion={handleToggleCompletion}
+        handleDeleteTask={handleDeleteTask}
+      />
+    );
+  };
+
   // Render the JSX for the component 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Task Manager</Text>
       
       {renderCategories()}
+
+      {/* Render either background image or TaskList */}
+      {renderTaskList()}
 
       {/* Render the TaskList component with filtered tasks */} 
       <TaskList

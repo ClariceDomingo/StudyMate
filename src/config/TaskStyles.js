@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     addButton: { 
         alignItems: "center", 
         justifyContent: "center", 
-        backgroundColor: "#007BFF", 
+        backgroundColor: "#008B8B", 
         paddingVertical: 15, 
         borderRadius: 10, 
         marginTop: 20, 
@@ -129,21 +129,20 @@ const styles = StyleSheet.create({
     }, 
     categoryList: {
         flexDirection: "row",
-        marginBottom: 485,
+        marginBottom: 10,
     },
     categoryItem: {
         padding: 10,
         marginHorizontal: 5,
         borderRadius: 8,
         borderWidth: 1,
-        borderColor: "#007BFF",
+        borderColor: "#008B8B",
     },
     selectedCategory: {
-        backgroundColor: "#007BFF",
-        textColor: "#fff", //this is what I edit
+        backgroundColor: "#008B8B",
     },
     categoryText: {
-        color: "#007BFF",
+        color: "black",
         fontWeight: "bold",
     },
     newCategoryContainer: {
@@ -160,7 +159,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     addButton: {
-        backgroundColor: "#007BFF",
+        backgroundColor: "#008B8B",
         padding: 10,
         borderRadius: 5,
         alignItems: "center",
@@ -170,6 +169,12 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontSize: 16,
         fontWeight: "bold",
+    },
+    backgroundImage: {
+        flex: 3,
+        resizeMode: "cover",
+        justifyContent: "center",
+        alignItems: "center",
     },
 }); 
 
