@@ -209,7 +209,7 @@ const TaskScreen = () => {
       {renderCategories()}
 
       {/* Render either background image or TaskList */}
-      {renderTaskList()}
+
 
       {/* Render the TaskList component with filtered tasks */} 
       <TaskList
