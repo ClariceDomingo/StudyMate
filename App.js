@@ -1,16 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { StyleSheet, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { StyleSheet } from 'react-native';
 
 import MainNavigator from './src/components/navigation/MainNavigator';
-import TaskScreen from "./src/components/screens/Task/TaskScreen";
+import LandingPage from "./src/components/forms/LandingPage";
 
 export default function App() {
+  const [showLandingPage, setShowLandingPage] = useState(true);
+
+  // Function to handle navigation to the MainNavigator
+  const handleStart = () => {
+    setShowLandingPage(false);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
-      <MainNavigator />
+      {/* Wrap the entire component tree with NavigationContainer */}
+      <NavigationContainer>
+        {/* Conditionally render LandingPage or MainNavigator */}
+        {showLandingPage ? (
+          <LandingPage onStart={handleStart} />
+        ) : (
+          <MainNavigator />
+        )}
+      </NavigationContainer>
     </SafeAreaView>
   );
 };
