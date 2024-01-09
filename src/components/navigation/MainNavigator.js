@@ -68,4 +68,3 @@ export default function MainNavigator() {
     </Tab.Navigator>
   );
 }
-

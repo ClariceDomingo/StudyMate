@@ -4,8 +4,8 @@ import styles from "../../config/TaskStyles";
 import DatePicker from "react-native-modern-datepicker"; 
 import ModalSelector from 'react-native-modal-selector';
 
-const TaskModal = ({ modalVisible, task, setTask, handleAddTask, handleCancel, validationError, categories, setNewCategory, newCategory, handleAddCategory, handleAddTaskAndCategory}) => { 
-    const [selectedCategory, setSelectedCategory] = useState(task.category || ""); // Initialize with the current task category
+const TaskModal = ({ modalVisible, task, setTask, handleAddTask, handleCancel, validationError, categories, setNewCategory, newCategory, handleAddCategory, handleAddTaskAndCategory, handleDeleteCategory}) => { 
+    const [selectedCategory, setSelectedCategory] = useState(task.category || ""); 
 
     const handleCategoryChange = (option) => {
         setSelectedCategory(option.value);
@@ -23,7 +23,6 @@ const TaskModal = ({ modalVisible, task, setTask, handleAddTask, handleCancel, v
                     placeholder="Title"
                     value={task.title} 
                     onChangeText={(text) => setTask({ ...task, title: text })} 
-                    // Update the title when text changes
                     /> 
 
                 <TextInput 
@@ -32,18 +31,34 @@ const TaskModal = ({ modalVisible, task, setTask, handleAddTask, handleCancel, v
                     value={task.description} 
                     onChangeText={(text) => setTask({ ...task, description: text })}
                 /> 
+                <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                    <View style={{ flex: 1, marginRight: 10 }}>
+                        <Text style={styles.inputLabel}>Category:</Text>
+                        <ModalSelector
+                            data={categories.map((category, index) => ({
+                                key: index,
+                                label: category,
+                                value: category,
+                            }))}
+                            initValue={selectedCategory || "Select Category"}
+                            onChange={handleCategoryChange}
+                            style={{ 
+                                color: selectedCategory === "Select Category" ? "black" : "#333",
+                                optionTextStyle: { color: "black" },
+                            }}
+                        />
+                    </View>
 
-                <Text style={styles.inputLabel}>Category:</Text>
-                <ModalSelector
-                    data={categories.map((category, index) => ({
-                    key: index,
-                    label: category,
-                    value: category,
-                    }))}
-                    initValue="Select Category"
-                    onChange={(option) => setTask({ ...task, category: option.value })}
-                />
-
+                    {selectedCategory && (
+                        <TouchableOpacity
+                            style={[styles.deleteCategoryButton, { backgroundColor: "#FF3B30", alignSelf: "flex-end" }]}
+                            onPress={() => handleDeleteCategory(selectedCategory)}
+                        >
+                            <Text style={styles.deleteCategoryButtonText}>Delete Category</Text>
+                        </TouchableOpacity>
+                    )}
+                </View>
+                
                 <View style={styles.newCategoryContainer}>
                     <TextInput
                     style={styles.newCategoryInput}

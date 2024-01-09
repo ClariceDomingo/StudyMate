@@ -148,6 +148,23 @@ const TaskScreen = () => {
     setSelectedCategory(selectedCategory);
   };
 
+  const handleDeleteCategory = (category) => {
+    // Filter tasks that don't belong to the deleted category
+    const updatedTasks = tasks.filter((t) => t.category !== category);
+    setTasks(updatedTasks);
+
+    // Update categories list
+    const updatedCategories = categories.filter((c) => c !== category);
+    setCategories(updatedCategories);
+
+    // Update tasks and filteredTasks based on the selected category
+    if (selectedCategory === category) {
+      handleFilterByCategory("All");
+    } else {
+      setFilteredTasks(tasks.filter((t) => t.category.toLowerCase() === selectedCategory.toLowerCase()));
+    }
+  };
+
   // Display categories at the top
   const renderCategories = () => {
     return (
@@ -203,11 +220,8 @@ const TaskScreen = () => {
   // Render the JSX for the component 
   return (
     <View style={styles.container}>
-      
       {renderCategories()}
-
       {renderTaskList()} 
-
 
       {/* Button to add or edit tasks */} 
       <TouchableOpacity
@@ -236,7 +250,6 @@ const TaskScreen = () => {
         task={task}
         setTask={setTask}
         handleAddTask={handleAddTask}
-        handleAddTaskAndCategory={handleAddTaskAndCategory}
         handleCancel={() => {
           setEditingTask(null);
           setTask({
@@ -255,10 +268,11 @@ const TaskScreen = () => {
         setNewCategory={setNewCategory}
         newCategory={newCategory}
         handleAddCategory={handleAddCategory} 
+        handleAddTaskAndCategory={handleAddTaskAndCategory}
+        handleDeleteCategory={handleDeleteCategory}
       />
     </View>
   );
 };
 
-// Export the App component as the default export 
 export default TaskScreen;

@@ -50,10 +50,7 @@ const styles = StyleSheet.create({
         color: "#666", 
     }, 
     buttonContainer: { 
-        // Or 'row' depending on your layout 
         flexDirection: "column",  
-        // Adjust the value as needed for the  
-        // desired spacing 
         marginVertical: 2,  
     }, 
     editButton: { 
@@ -93,6 +90,7 @@ const styles = StyleSheet.create({
         paddingVertical: 15, 
         borderRadius: 10, 
         marginTop: 20, 
+        marginBottom: 10,
     }, 
     addButtonText: { 
         color: "#fff", 
@@ -108,13 +106,15 @@ const styles = StyleSheet.create({
         borderWidth: 1, 
         borderColor: "#ccc", 
         padding: 10, 
-        marginBottom: 20, 
+        marginBottom: 10, 
         borderRadius: 5, 
         fontSize: 16, 
     }, 
     inputLabel: { 
         fontSize: 16, 
         fontWeight: "bold", 
+        marginTop: 10,
+        marginBottom: 10,
     }, 
     errorText: { 
         color: "#FF3B30", 
@@ -142,6 +142,9 @@ const styles = StyleSheet.create({
     selectedCategory: {
         backgroundColor: "#008B8B",
     },
+    selectedCategory2: {
+        color: "black",
+    },
     categoryText: {
         color: "black",
         fontWeight: "bold",
@@ -165,10 +168,12 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         alignItems: "center",
         justifyContent: "center",
+        marginTop: 10,
+        marginBottom: 10,
     },
     addButtonText: {
         color: "#fff",
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: "bold",
     },
     backgroundImage: {
@@ -179,6 +184,18 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         marginTop: 60,
+    },
+    deleteCategoryButton: {
+        backgroundColor: "#FF3B30",
+        padding: 10,
+        borderRadius: 5,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    deleteCategoryButtonText: {
+        color: "#fff",
+        fontSize: 14,
+        fontWeight: "bold",
     },
 }); 
 

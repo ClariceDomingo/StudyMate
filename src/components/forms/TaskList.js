@@ -6,9 +6,9 @@ import styles from "../../config/TaskStyles";
 const TaskList = ({ tasks, handleEditTask, handleToggleCompletion, handleDeleteTask }) => { 
     return ( 
         <ScrollView style={styles.taskList}> 
-            {tasks.map((t) => ( 
+            {tasks.map((t, index) => ( 
                 <TaskItem 
-                    key={t.id} 
+                    key={index} 
                     task={t} 
                     handleEditTask={handleEditTask} 
                     handleToggleCompletion={handleToggleCompletion} 
@@ -19,5 +19,4 @@ const TaskList = ({ tasks, handleEditTask, handleToggleCompletion, handleDeleteT
     ); 
 }; 
 
-// Export the TaskList component 
 export default TaskList;

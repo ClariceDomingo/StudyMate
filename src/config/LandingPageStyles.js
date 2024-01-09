@@ -31,12 +31,15 @@ const landingStyles = StyleSheet.create({
     },
     description: {
         fontSize: 16,
-        marginBottom: 30,
+        marginLeft: 30,
+        marginRight: 30,
+        marginBottom: 20,
         textAlign: "center",
     },
     startButton: {
         backgroundColor: "#008B8B",
         paddingVertical: 15,
+        padding: 50,
         borderRadius: 10,
         alignItems: "center",
         justifyContent: "center",
