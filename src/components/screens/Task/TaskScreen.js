@@ -185,9 +185,7 @@ const TaskScreen = () => {
     if (filteredTasks.length === 0) {
       // Render background image when there are no tasks
       return (
-        <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
-          {/* You can customize the style of the background image container */}
-        </ImageBackground>
+        <ImageBackground source={backgroundImage} style={styles.backgroundImage}></ImageBackground>
       );
     }
 
@@ -208,16 +206,8 @@ const TaskScreen = () => {
       
       {renderCategories()}
 
-      {/* Render either background image or TaskList */}
+      {renderTaskList()} 
 
-
-      {/* Render the TaskList component with filtered tasks */} 
-      <TaskList
-        tasks={filteredTasks}
-        handleEditTask={handleEditTask}
-        handleToggleCompletion={handleToggleCompletion}
-        handleDeleteTask={handleDeleteTask}
-      />
 
       {/* Button to add or edit tasks */} 
       <TouchableOpacity

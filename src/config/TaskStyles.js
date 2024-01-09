@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
     }, 
     categoryList: {
         flexDirection: "row",
+        maxHeight: 40,
         marginBottom: 10,
     },
     categoryItem: {
@@ -171,10 +172,13 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     backgroundImage: {
-        flex: 3,
+        flex: 1,
+        width: "100%",
+        height: "80 %",
         resizeMode: "cover",
         justifyContent: "center",
         alignItems: "center",
+        marginTop: 60,
     },
 }); 
 
