@@ -10,7 +10,6 @@ import LandingPage from "./src/components/forms/LandingPage";
 export default function App() {
   const [showLandingPage, setShowLandingPage] = useState(true);
 
-  // Function to handle navigation to the MainNavigator
   const handleStart = () => {
     setShowLandingPage(false);
   };
@@ -18,9 +17,8 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
-      {/* Wrap the entire component tree with NavigationContainer */}
+
       <NavigationContainer>
-        {/* Conditionally render LandingPage or MainNavigator */}
         {showLandingPage ? (
           <LandingPage onStart={handleStart} />
         ) : (

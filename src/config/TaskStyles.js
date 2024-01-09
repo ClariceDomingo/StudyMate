@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     }, 
     errorText: { 
         color: "#FF3B30", 
-        fontSize: 16, 
+        fontSize: 14, 
         marginBottom: 10, 
     }, 
     taskDeadline: { 
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginRight: 10,
     },
-    addButton: {
+    addCategoryButton: {
         backgroundColor: "#008B8B",
         padding: 10,
         borderRadius: 5,
@@ -171,10 +171,30 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 10,
     },
-    addButtonText: {
+    addCategoryButtonText: {
         color: "#fff",
         fontSize: 14,
         fontWeight: "bold",
+    },
+    addButton: {
+        backgroundColor: "#008B8B",
+        paddingVertical: 12,
+        borderRadius: 10,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    buttonText: {
+        color: "#fff",
+        fontSize: 16,
+        fontWeight: "bold",
+    },
+    cancelButton: {
+        backgroundColor: "#FF3B30",
+        paddingVertical: 12,
+        borderRadius: 10,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 10,
     },
     backgroundImage: {
         flex: 1,

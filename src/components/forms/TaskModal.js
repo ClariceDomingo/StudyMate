@@ -15,7 +15,6 @@ const TaskModal = ({ modalVisible, task, setTask, handleAddTask, handleCancel, v
     return ( 
         <Modal visible={modalVisible} animationType="slide" transparent={false}> 
         
-        {/* Container for the modal */} 
         <View style={styles.modalContainer}> 
             <ScrollView>
                 <TextInput 
@@ -33,7 +32,7 @@ const TaskModal = ({ modalVisible, task, setTask, handleAddTask, handleCancel, v
                 /> 
                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                     <View style={{ flex: 1, marginRight: 10 }}>
-                        <Text style={styles.inputLabel}>Category:</Text>
+                        <Text style={styles.inputLabel}>Category: {selectedCategory} </Text>
                         <ModalSelector
                             data={categories.map((category, index) => ({
                                 key: index,
@@ -42,9 +41,11 @@ const TaskModal = ({ modalVisible, task, setTask, handleAddTask, handleCancel, v
                             }))}
                             initValue={selectedCategory || "Select Category"}
                             onChange={handleCategoryChange}
-                            style={{ 
-                                color: selectedCategory === "Select Category" ? "black" : "#333",
-                                optionTextStyle: { color: "black" },
+                            style={{ color: selectedCategory === "Select Category" ? "black" : "#333" }}
+                            optionContainerStyle={{
+                                borderRadius: 5,
+                                marginHorizontal: 10,
+                                marginVertical: 5,
                             }}
                         />
                     </View>
@@ -66,8 +67,8 @@ const TaskModal = ({ modalVisible, task, setTask, handleAddTask, handleCancel, v
                     value={newCategory}
                     onChangeText={(text) => setNewCategory(text)}
                     />
-                    <TouchableOpacity style={styles.addButton} onPress={handleAddCategory}>
-                    <Text style={styles.addButtonText}>Add Category</Text>
+                    <TouchableOpacity style={styles.addCategoryButton} onPress={handleAddCategory}>
+                    <Text style={styles.addCategoryButtonText}>Add Category</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -82,18 +83,21 @@ const TaskModal = ({ modalVisible, task, setTask, handleAddTask, handleCancel, v
                 {validationError && ( 
                     <Text style={styles.errorText}> Please fill in all fields correctly. </Text> 
                 )}
-                
-                <Button 
-                    title={task.id ? "Update" : "Add"} 
-                    onPress={handleAddTaskAndCategory} 
-                    color="#007BFF"
-                /> 
+                <TouchableOpacity
+                    style={styles.addButton}
+                    onPress={handleAddTaskAndCategory}
+                >
+                    <Text style={styles.buttonText}>
+                    {task.id ? "Update" : "Add"}
+                    </Text>
+                </TouchableOpacity>
 
-                <Button 
-                    title="Cancel"
-                    onPress={handleCancel} 
-                    color="#FF3B30"
-                /> 
+                <TouchableOpacity
+                    style={styles.cancelButton}
+                    onPress={handleCancel}
+                >
+                    <Text style={styles.buttonText}>Cancel</Text>
+                </TouchableOpacity>
             </ScrollView>
         </View> 
         </Modal> 

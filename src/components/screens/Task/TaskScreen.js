@@ -40,14 +40,12 @@ const TaskScreen = () => {
 
   const handleAddCategory = () => {
     if (newCategory.trim() !== "") {
-      // Check if the category already exists
       if (!categories.includes(newCategory)) {
         setCategories([...categories, newCategory]);
         setTask({ ...task, category: newCategory });
         setNewCategory("");
         setModalVisible(true);
       } else {
-        // Display an alert or handle it as needed
         alert("Category already exists!");
       }
     }
@@ -59,19 +57,39 @@ const TaskScreen = () => {
       const currentDate = new Date();
       const formattedDate = currentDate.toLocaleString();
 
-      const newTask = {
-        id: Date.now(),
+      const updatedTask = {
+        id: editingTask ? editingTask.id : Date.now(),
         ...task,
         createdAt: formattedDate,
         category: task.category || newCategory,
       };
 
-      setTasks((prevTasks) => [...prevTasks, newTask]);
-      
-      if (selectedCategory === "All" || selectedCategory === newTask.category) {
-        setFilteredTasks((prevFilteredTasks) => [...prevFilteredTasks, newTask]);
+      if (editingTask) {
+        const updatedTasks = tasks.map((t) =>
+          t.id === editingTask.id ? updatedTask : t
+        );
+        setTasks(updatedTasks);
+  
+        if (
+          selectedCategory === "All" ||
+          selectedCategory === updatedTask.category
+        ) {
+          const updatedFilteredTasks = filteredTasks.map((t) =>
+            t.id === editingTask.id ? updatedTask : t
+          );
+          setFilteredTasks(updatedFilteredTasks);
+        }
+      } else {
+        setTasks((prevTasks) => [...prevTasks, updatedTask]);
+  
+        if (
+          selectedCategory === "All" ||
+          selectedCategory === updatedTask.category
+        ) {
+          setFilteredTasks((prevFilteredTasks) => [...prevFilteredTasks, updatedTask]);
+        }
       }
-      // Clear the task input fields and reset state 
+
       setTask({ 
         title: "", 
         description: "", 
@@ -80,28 +98,16 @@ const TaskScreen = () => {
         createdAt: "", 
         category: "",
       }); 
-          
-      // Close the modal 
       setModalVisible(false); 
-          
-      // Reset validation error 
       setValidationError(false);  
     } else { 
-      
-      // Show validation error if fields are not filled 
       setValidationError(true);  
     } 
   }; 
 
-  // Function to handle task editing 
   const handleEditTask = (task) => { 
-
-    // Ensure that date and time values are preserved without modification
     setTask((prevTask) => {
-      // Copy over all properties from the existing task
       const updatedTask = { ...prevTask };
-
-      // Copy over properties from the task being edited
       for (const key in task) {
         if (task.hasOwnProperty(key)) {
           updatedTask[key] = task[key];
@@ -110,54 +116,42 @@ const TaskScreen = () => {
       return updatedTask;
     });  
     setEditingTask(task);
-    // Open the modal for editing 
     setModalVisible(true);  
   }; 
 
-  // Function to delete a task 
   const handleDeleteTask = (taskId) => { 
     const updatedTasks = tasks.filter((t) => t.id !== taskId); 
-    setTasks(updatedTasks); 
+    setTasks(updatedTasks);
+    
+    const updatedFilteredTasks = filteredTasks.filter((t) => t.id !== taskId);
+    setFilteredTasks(updatedFilteredTasks);
   }; 
 
-  // Function to toggle task completion status 
   const handleToggleCompletion = (taskId) => { 
-    const updatedTasks = tasks.map((t) => 
-      t.id === taskId 
-        ? { 
-            ...t, 
-            status: t.status === "Pending" ? "Completed" : "Pending", 
-          } 
-        : t 
-    ); 
+    const updatedTasks = tasks.map((t) => t.id === taskId ? { ...t, status: t.status === "Pending" ? "Completed" : "Pending", } : t ); 
     setTasks(updatedTasks); 
+
+    const updatedFilteredTasks = filteredTasks.map((t) => t.id === taskId ? { ...t, status: t.status === "Pending" ? "Completed" : "Pending", } : t );
+    setFilteredTasks(updatedFilteredTasks);
   };
 
-  // Function to handle category filtering
   const handleFilterByCategory = (selectedCategory) => {
     if (selectedCategory === "All") {
-      // Display all tasks when "All" category is selected
       setFilteredTasks(tasks);
     } else {
-      // Filter tasks based on the selected category
-      const filteredTasks = tasks.filter(
-        (t) => t.category.toLowerCase() === selectedCategory.toLowerCase()
-      );
+      const filteredTasks = tasks.filter((t) => t.category.toLowerCase() === selectedCategory.toLowerCase());
       setFilteredTasks(filteredTasks);
     }
     setSelectedCategory(selectedCategory);
   };
 
   const handleDeleteCategory = (category) => {
-    // Filter tasks that don't belong to the deleted category
     const updatedTasks = tasks.filter((t) => t.category !== category);
     setTasks(updatedTasks);
 
-    // Update categories list
     const updatedCategories = categories.filter((c) => c !== category);
     setCategories(updatedCategories);
 
-    // Update tasks and filteredTasks based on the selected category
     if (selectedCategory === category) {
       handleFilterByCategory("All");
     } else {
@@ -165,29 +159,20 @@ const TaskScreen = () => {
     }
   };
 
-  // Display categories at the top
   const renderCategories = () => {
     return (
       <ScrollView horizontal style={styles.categoryList}>
-        {/* Add "All" category to display all tasks */}
         <TouchableOpacity
-          style={[
-            styles.categoryItem,
-            selectedCategory === "All" && styles.selectedCategory,
-          ]}
+          style={[ styles.categoryItem, selectedCategory === "All" && styles.selectedCategory, ]}
           onPress={() => handleFilterByCategory("All")}
         >
           <Text style={[styles.categoryText, selectedCategory === "All" && {color: "#fff"}]}>All</Text>
         </TouchableOpacity>
 
-        {/* Display other categories */}
         {categories.map((category) => (
           <TouchableOpacity
             key={category}
-            style={[
-              styles.categoryItem,
-              selectedCategory === category && styles.selectedCategory,
-            ]}
+            style={[ styles.categoryItem, selectedCategory === category && styles.selectedCategory, ]}
             onPress={() => handleFilterByCategory(category)}
           >
             <Text style={[styles.categoryText, selectedCategory === category && { color: "#fff" }]}>{category}</Text>
@@ -200,13 +185,9 @@ const TaskScreen = () => {
 
   const renderTaskList = () => {
     if (filteredTasks.length === 0) {
-      // Render background image when there are no tasks
-      return (
-        <ImageBackground source={backgroundImage} style={styles.backgroundImage}></ImageBackground>
-      );
+      return (<ImageBackground source={backgroundImage} style={styles.backgroundImage}></ImageBackground>);
     }
 
-    // Render TaskList component with filtered tasks
     return (
       <TaskList
         tasks={filteredTasks}
@@ -217,13 +198,11 @@ const TaskScreen = () => {
     );
   };
 
-  // Render the JSX for the component 
   return (
     <View style={styles.container}>
       {renderCategories()}
       {renderTaskList()} 
 
-      {/* Button to add or edit tasks */} 
       <TouchableOpacity
         style={styles.addButton} 
         onPress={() => {
@@ -236,15 +215,12 @@ const TaskScreen = () => {
             createdAt: "",
             category: "",
           });
-          setNewCategory("");
           setModalVisible(true);
-          setValidationError(false);
         }}
       >
-        <Text style={styles.addButtonText}>Add Task</Text>
+        <Text style={[styles.addButtonText, { fontSize: 16 }]}>Add Task</Text>
       </TouchableOpacity>
 
-      {/* Render the TaskModal component */}
       <TaskModal
         modalVisible={modalVisible}
         task={task}
@@ -267,7 +243,7 @@ const TaskScreen = () => {
         categories={categories}
         setNewCategory={setNewCategory}
         newCategory={newCategory}
-        handleAddCategory={handleAddCategory} 
+        handleAddCategory={handleAddCategory}
         handleAddTaskAndCategory={handleAddTaskAndCategory}
         handleDeleteCategory={handleDeleteCategory}
       />
