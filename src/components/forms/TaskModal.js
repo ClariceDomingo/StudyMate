@@ -32,7 +32,7 @@ const TaskModal = ({ modalVisible, task, setTask, handleAddTask, handleCancel, v
                 /> 
                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                     <View style={{ flex: 1, marginRight: 10 }}>
-                        <Text style={styles.inputLabel}>Category: {selectedCategory} </Text>
+                        <Text style={styles.inputLabel}>Category: <Text style={{color: '#008B8B'}}> {selectedCategory} </Text></Text>
                         <ModalSelector
                             data={categories.map((category, index) => ({
                                 key: index,
@@ -41,18 +41,13 @@ const TaskModal = ({ modalVisible, task, setTask, handleAddTask, handleCancel, v
                             }))}
                             initValue={selectedCategory || "Select Category"}
                             onChange={handleCategoryChange}
-                            style={{ color: selectedCategory === "Select Category" ? "black" : "#333" }}
-                            optionContainerStyle={{
-                                borderRadius: 5,
-                                marginHorizontal: 10,
-                                marginVertical: 5,
-                            }}
+                            style={styles.modalSelector}
                         />
                     </View>
 
                     {selectedCategory && (
                         <TouchableOpacity
-                            style={[styles.deleteCategoryButton, { backgroundColor: "#FF3B30", alignSelf: "flex-end" }]}
+                            style={styles.deleteCategoryButton}
                             onPress={() => handleDeleteCategory(selectedCategory)}
                         >
                             <Text style={styles.deleteCategoryButtonText}>Delete Category</Text>
