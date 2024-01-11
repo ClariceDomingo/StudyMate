@@ -246,6 +246,17 @@ const styles = StyleSheet.create({
         fontSize: 12,
         marginTop: 5,
     },
+    completedSectionHeader: {
+        backgroundColor: "#f7f7f7",
+        padding: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: "#ccc",
+    },
+    completedSectionHeaderText: {
+        fontSize: 16,
+        fontWeight: "bold",
+        color: "#333",
+    },
 }); 
 
 export default styles;
