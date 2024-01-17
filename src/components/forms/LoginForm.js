@@ -1,24 +1,144 @@
-// LoginForm.js
+import React, { useLayoutEffect } from "react";
+import { SafeAreaView, View, Text, TouchableOpacity } from "react-native";
+import Spacing from "../../../constants/Spacing";
+import FontSize from "../../../constants/FontSize";
+import Colors from "../../../constants/Colors";
+import Font from "../../../constants/Font";
+import AppTextInput from "../AppTextInput";
+import { useNavigation } from "@react-navigation/native";
 
-import React, { useState } from 'react';
-import { View, TextInput, Button } from 'react-native';
+const LoginScreen = () => {
+  const navigation = useNavigation();
 
-const LoginForm = ({ onLogin }) => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, [navigation]);
 
-    const handleLogin = () => {
-        // Perform login logic and call onLogin callback
-        onLogin({ username, password });
-    };
+  const handleForgotPassword = () => {
+    navigation.navigate("ForgotPasswordScreen");
+  };
 
-    return (
-        <View>
-        <TextInput placeholder="Username" value={username} onChangeText={setUsername} />
-        <TextInput placeholder="Password" secureTextEntry value={password} onChangeText={setPassword} />
-        <Button title="Login" onPress={handleLogin} />
+  const handleSignIn = async () => {
+    try {
+      // Implement your sign-in logic here
+      // For now, let's just navigate to the "Home" screen
+      navigation.navigate("Profile");
+    } catch (e) {
+      console.debug(e.toString());
+    }
+  };
+
+  const handleNavigateToSignUp = () => {
+    navigation.navigate("SignUpForm");
+  };
+
+  return (
+    <SafeAreaView>
+      <View
+        style={{
+          padding: Spacing * 2,
+        }}
+      >
+        <View
+          style={{
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              fontSize: FontSize.xLarge,
+              color: Colors.primary,
+              fontFamily: Font["poppins-bold"],
+              marginVertical: Spacing * 3,
+            }}
+          >
+            LOGIN
+          </Text>
+          <Text
+            style={{
+              fontFamily: Font["poppins-semiBold"],
+              fontSize: FontSize.large,
+              maxWidth: "80%",
+              textAlign: "center",
+            }}
+          >
+            WELCOME!
+          </Text>
         </View>
-    );
+        <View
+          style={{
+            marginVertical: Spacing * 3,
+          }}
+        >
+          <AppTextInput placeholder="Email" />
+          <AppTextInput placeholder="Password" />
+        </View>
+
+        <TouchableOpacity onPress={handleForgotPassword}>
+          <Text
+            style={{
+              fontFamily: Font["poppins-semiBold"],
+              fontSize: FontSize.small,
+              color: Colors.primary,
+              alignSelf: "flex-end",
+              textDecorationLine: "underline",
+            }}
+          >
+            Forgot your password?
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={handleSignIn}
+          style={{
+            padding: Spacing * 2,
+            backgroundColor: Colors.primary,
+            marginVertical: Spacing * 3,
+            borderRadius: Spacing,
+            shadowColor: Colors.primary,
+            shadowOffset: {
+              width: 0,
+              height: Spacing,
+            },
+            shadowOpacity: 0.3,
+            shadowRadius: Spacing,
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: Font["poppins-bold"],
+              color: Colors.onPrimary,
+              textAlign: "center",
+              fontSize: FontSize.large,
+            }}
+          >
+            Sign in
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={handleNavigateToSignUp}
+          style={{
+            padding: Spacing,
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: Font["poppins-semiBold"],
+              color: Colors.text,
+              textAlign: "center",
+              fontSize: FontSize.small,
+              textDecorationLine: "underline",
+            }}
+          >
+            Create a new account
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
 };
 
-export default LoginForm;
+export default LoginScreen;
