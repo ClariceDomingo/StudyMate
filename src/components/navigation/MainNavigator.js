@@ -1,4 +1,3 @@
-// MainNavigator.js
 import React, { useState, useEffect } from "react";
 import { Icon } from "react-native-paper";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -8,7 +7,7 @@ import ProfileScreen from "../screens/Profile/ProfileScreen";
 import SettingsScreen from "../screens/Settings/SettingsScreen";
 import LoginForm from "../../components/forms/LoginForm";
 import ForgotPasswordScreen from "../forms/ForgotPasswordForm";
-import SignUpForm from "../forms/SignUpForm"; // Import the SignUpForm component
+import SignUpForm from "../forms/SignUpForm"; 
 
 const Tab = createBottomTabNavigator();
 
@@ -70,19 +69,19 @@ export default function MainNavigator() {
         component={SettingsScreen}
       />
 
-      {/* Conditionally render LoginForm screen based on the user's login state */}
+      {}
       {isLoggedIn ? null : (
         <Tab.Screen
           options={{
-            tabBarButton: () => null, // Hide the tab button
-            tabBarIcon: () => null, // Hide the tab icon
+            tabBarButton: () => null, 
+            tabBarIcon: () => null, 
           }}
           name="LoginForm"
           component={LoginForm}
         />
       )}
 
-      {/* Add ForgotPasswordScreen to the navigator */}
+      {}
       <Tab.Screen
         options={{
           tabBarButton: () => null,
@@ -98,7 +97,7 @@ export default function MainNavigator() {
             tabBarButton: () => null,
             tabBarIcon: () => null,
     }}
-    name="SignUpForm"  // Corrected screen name to "SignUpForm"
+    name="SignUpForm"  
     component={SignUpForm}
   />
 ) : null}

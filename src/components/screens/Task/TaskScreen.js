@@ -29,7 +29,7 @@ const TaskScreen = ({ route }) => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    // Update tasks when the route params change
+    
     if (route.params?.updatedTasks) {
       setTasks(route.params.updatedTasks);
     }
@@ -115,7 +115,6 @@ const TaskScreen = ({ route }) => {
       setModalVisible(false);
       setValidationError(false);
   
-      // Pass the updated tasks to ProfileScreen through navigation
       navigation.navigate('Profile', { updatedTasks: [...tasks, updatedTask] });
     } else {
       setValidationError(true);
@@ -152,7 +151,6 @@ const TaskScreen = ({ route }) => {
     const updatedFilteredTasks = filteredTasks.map((t) => t.id === taskId ? { ...t, status: t.status === "Pending" ? "Completed" : "Pending", } : t );
     setFilteredTasks(updatedFilteredTasks);
 
-    // Pass the updated tasks to ProfileScreen through navigation
     navigation.navigate('Profile', { updatedTasks });
   };
 

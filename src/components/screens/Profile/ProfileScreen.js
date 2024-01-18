@@ -41,7 +41,7 @@ const ProfileScreen = ({ route }) => {
   };
 
   const navigateToLoginForm = () => {
-    navigation.navigate('LoginForm'); // Assuming 'LoginForm' is the correct screen name
+    navigation.navigate('LoginForm'); 
   };
 
   return (

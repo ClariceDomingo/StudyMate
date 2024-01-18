@@ -22,8 +22,6 @@ const LoginScreen = () => {
 
   const handleSignIn = async () => {
     try {
-      // Implement your sign-in logic here
-      // For now, let's just navigate to the "Home" screen
       navigation.navigate("Profile");
     } catch (e) {
       console.debug(e.toString());

@@ -21,8 +21,6 @@ const SignUpForm = ({ navigation }) => {
 
   const handleSignIn = async () => {
     try {
-      // Implement your sign-in logic here
-      // For now, let's just navigate to the "Home" screen
       navigation.navigate("Profile");
     } catch (e) {
       console.debug(e.toString());
@@ -31,7 +29,7 @@ const SignUpForm = ({ navigation }) => {
 
   const handleSignUp = async () => {
     try {
-      // Perform signup logic here
+      // signup logic 
 
       if (name === "" || email === "" || password === "" || repassword === "") {
         setIsError(true);
@@ -43,7 +41,7 @@ const SignUpForm = ({ navigation }) => {
         return;
       }
 
-      // Replace the following line with your actual API endpoint and logic
+      // API endpoint and logic
       const url = "http://your-api-endpoint.com/register";
       const data = {
         name,
@@ -63,17 +61,13 @@ const SignUpForm = ({ navigation }) => {
       const resultData = await result.json();
 
       if (resultData?.message != null) {
-        // Handle success message or show a toast
         console.debug(resultData.message);
-        // Navigate to the "Profile" screen after successful signup
         navigation.navigate("Profile");
       } else {
-        // Handle error message or show a toast
         console.error("Signup failed:", resultData.error);
       }
     } catch (e) {
       console.error("Error during signup:", e);
-      // Handle error or show a toast
     }
   };
 
@@ -174,4 +168,3 @@ export default SignUpForm;
 
 const styles = StyleSheet.create({});
 
-// Your stylesheet here...
