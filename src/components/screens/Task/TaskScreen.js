@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, ScrollView, TextInput, ImageBackground } from "react-native";
 import TaskList from "../../forms/TaskList";
 import TaskModal from "../../forms/TaskModal";
 import styles from "../../../config/TaskStyles";
+import { useNavigation } from '@react-navigation/native';
 
 const backgroundImage = require("../../../../assets/emptyImage.png");
 
-const TaskScreen = () => {
+const TaskScreen = ({ route }) => {
   const [tasks, setTasks] = useState([]);
   const [task, setTask] = useState({
     title: "",
@@ -16,6 +17,7 @@ const TaskScreen = () => {
     createdAt: "",
     category: "",
   });
+
   const [modalVisible, setModalVisible] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
   const [validationError, setValidationError] = useState(false);
@@ -23,6 +25,15 @@ const TaskScreen = () => {
   const [filteredTasks, setFilteredTasks] = useState([]); 
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [newCategory, setNewCategory] = useState("");
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    
+    if (route.params?.updatedTasks) {
+      setTasks(route.params.updatedTasks);
+    }
+  }, [route.params?.updatedTasks]);
 
   const handleAddTask = () => {
     setEditingTask(null);
@@ -52,18 +63,21 @@ const TaskScreen = () => {
   };
 
   const handleAddTaskAndCategory = () => {
-    if (task.title.trim() !== "" && task.deadline !== "" && (task.category.trim() !== "" || newCategory.trim() !== "")
+    if (
+      task.title.trim() !== "" &&
+      task.deadline !== "" &&
+      (task.category.trim() !== "" || newCategory.trim() !== "")
     ) {
       const currentDate = new Date();
       const formattedDate = currentDate.toLocaleString();
-
+  
       const updatedTask = {
         id: editingTask ? editingTask.id : Date.now(),
         ...task,
         createdAt: formattedDate,
         category: task.category || newCategory,
       };
-
+  
       if (editingTask) {
         const updatedTasks = tasks.map((t) =>
           t.id === editingTask.id ? updatedTask : t
@@ -89,21 +103,24 @@ const TaskScreen = () => {
           setFilteredTasks((prevFilteredTasks) => [...prevFilteredTasks, updatedTask]);
         }
       }
-
-      setTask({ 
-        title: "", 
-        description: "", 
-        status: "Pending", 
-        deadline: "", 
-        createdAt: "", 
+  
+      setTask({
+        title: "",
+        description: "",
+        status: "Pending",
+        deadline: "",
+        createdAt: "",
         category: "",
-      }); 
-      setModalVisible(false); 
-      setValidationError(false);  
-    } else { 
-      setValidationError(true);  
-    } 
-  }; 
+      });
+      setModalVisible(false);
+      setValidationError(false);
+  
+      navigation.navigate('Profile', { updatedTasks: [...tasks, updatedTask] });
+    } else {
+      setValidationError(true);
+    }
+  };
+  
 
   const handleEditTask = (task) => { 
     setTask((prevTask) => {
@@ -133,6 +150,8 @@ const TaskScreen = () => {
 
     const updatedFilteredTasks = filteredTasks.map((t) => t.id === taskId ? { ...t, status: t.status === "Pending" ? "Completed" : "Pending", } : t );
     setFilteredTasks(updatedFilteredTasks);
+
+    navigation.navigate('Profile', { updatedTasks });
   };
 
   const handleFilterByCategory = (selectedCategory) => {
@@ -178,7 +197,6 @@ const TaskScreen = () => {
             <Text style={[styles.categoryText, selectedCategory === category && { color: "#fff" }]}>{category}</Text>
           </TouchableOpacity>
         ))}
-        
       </ScrollView>
     );
   };
