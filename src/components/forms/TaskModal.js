@@ -16,7 +16,7 @@ const TaskModal = ({ modalVisible, task, setTask, handleAddTask, handleCancel, v
         <Modal visible={modalVisible} animationType="slide" transparent={false}> 
         
         <View style={styles.modalContainer}> 
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
                 <TextInput 
                     style={styles.input} 
                     placeholder="Title"

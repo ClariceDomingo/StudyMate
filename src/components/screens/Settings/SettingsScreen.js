@@ -45,7 +45,7 @@ export default function SettingsScreen({ navigation }) {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false} >
       <View>
 
         <General />
@@ -59,6 +59,7 @@ export default function SettingsScreen({ navigation }) {
           <List.Item title="Auto Start of Next Work" right={() => ( <Switch value={isSwitchOn1} onValueChange={onToggleSwitch1} style={styles.switch} /> )} />
           <List.Item title="Auto Start of Next Break" right={() => ( <Switch value={isSwitchOn2} onValueChange={onToggleSwitch2} style={styles.switch} /> )} />
           <List.Item title="Full Screen Timer" right={() => ( <Switch value={isSwitchOn5} onValueChange={onToggleSwitch5} style={styles.switch} /> )} />
+          <List.Item title="Custom Quotes" />
         </View>
 
         <DeepFocusMode />
