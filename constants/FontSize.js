@@ -1,14 +1,18 @@
-const small = 14;
-const medium = 16;
-const large = 20;
-const xLarge = 30;
-const xxLarge = 35;
+const white = "lightpink";
+const black = "#000";
+const dark = "#626262";
+const blue = "black";
+const gray = "#ECECECsss";
+const lightBlue = "#f1f4ff";
 
 export default {
-  small,
-  medium,
-  large,
-  xLarge,
-  xxLarge,
+  darkText: dark,
+  text: black,
+  background: white,
+  primary: blue,
+  onPrimary: white,
+  active: blue,
+  borderWithOpacity: "#1f41bb",
+  lightPrimary: lightBlue,
+  gray: gray,
 };
-

@@ -1,16 +1,20 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { Swipeable } from "react-native-gesture-handler";
 import { RectButton } from "react-native-gesture-handler";
 import styles from "../../config/TaskStyles";
 
-const TaskItem = ({ task, handleEditTask, handleToggleCompletion, handleDeleteTask }) => {
+const TaskItem = ({ task, handleEditTask, handleToggleCompletion, handleDeleteTask, tasks }) => {
   const renderRightActions = (progress, dragX) => {
     const trans = dragX.interpolate({
       inputRange: [0, 50, 100],
       outputRange: [0, 0.5, 1],
     });
+
+    const onDelete = () => {
+      handleDeleteTask(task.id,);
+    };
 
     return (
       <View style={styles.rightActionContainer}>
@@ -22,7 +26,7 @@ const TaskItem = ({ task, handleEditTask, handleToggleCompletion, handleDeleteTa
           <Text style={styles.actionLabel}>Edit</Text>
         </RectButton>
         <RectButton
-          onPress={() => handleDeleteTask(task.id)}
+          onPress={onDelete}
           style={[styles.rightAction, { backgroundColor: "#D24545" }]}
         >
           <Feather name="trash-2" size={20} color="#fff" />

@@ -29,7 +29,6 @@ const TaskScreen = ({ route }) => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    
     if (route.params?.updatedTasks) {
       setTasks(route.params.updatedTasks);
     }
@@ -115,6 +114,7 @@ const TaskScreen = ({ route }) => {
       setModalVisible(false);
       setValidationError(false);
   
+      // Update the navigation to 'Profile' screen
       navigation.navigate('Profile', { updatedTasks: [...tasks, updatedTask] });
     } else {
       setValidationError(true);
@@ -142,6 +142,9 @@ const TaskScreen = ({ route }) => {
     
     const updatedFilteredTasks = filteredTasks.filter((t) => t.id !== taskId);
     setFilteredTasks(updatedFilteredTasks);
+
+    // Update the navigation to 'Profile' screen
+    navigation.navigate('Profile', { updatedTasks });
   }; 
 
   const handleToggleCompletion = (taskId) => { 
@@ -151,6 +154,7 @@ const TaskScreen = ({ route }) => {
     const updatedFilteredTasks = filteredTasks.map((t) => t.id === taskId ? { ...t, status: t.status === "Pending" ? "Completed" : "Pending", } : t );
     setFilteredTasks(updatedFilteredTasks);
 
+    // Update the navigation to 'Profile' screen
     navigation.navigate('Profile', { updatedTasks });
   };
 
@@ -223,18 +227,7 @@ const TaskScreen = ({ route }) => {
 
       <TouchableOpacity
         style={styles.addButton} 
-        onPress={() => {
-          setEditingTask(null);
-          setTask({
-            title: "",
-            description: "",
-            status: "Pending",
-            deadline: "",
-            createdAt: "",
-            category: "",
-          });
-          setModalVisible(true);
-        }}
+        onPress={handleAddTask}
       >
         <Text style={[styles.addButtonText, { fontSize: 16 }]}>Add Task</Text>
       </TouchableOpacity>

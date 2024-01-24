@@ -9,9 +9,6 @@ import ProfileScreen from "../screens/Profile/ProfileScreen";
 import SettingsScreen from "../screens/Settings/SettingsScreen";
 
 import LoginForm from "../../components/forms/LoginForm";
-import ForgotPasswordScreen from "../forms/ForgotPasswordForm";
-import SignUpForm from "../forms/SignUpForm"; 
-
 import Help from "../screens/Settings/Help";
 import About from "../screens/Settings/About";
 
@@ -31,7 +28,7 @@ function HomeTabs() {
       initialRouteName="Settings"
       screenOptions={({ route }) => ({        
         headerShown: false,
-        tabBarStyle: { height: 55, }, 
+        tabBarStyle: { height: 55 },
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
@@ -59,38 +56,16 @@ function HomeTabs() {
       <Tab.Screen name="Timer" component={TimerScreen} />
       <Tab.Screen name="Settings" component={SettingsScreen} options={{ headerShown: true }} />
 
-      {}
       {isLoggedIn ? null : (
         <Tab.Screen
           options={{
-            tabBarButton: () => null, 
-            tabBarIcon: () => null, 
+            tabBarButton: () => null,
+            tabBarIcon: () => null,
           }}
           name="LoginForm"
           component={LoginForm}
         />
       )}
-
-      {}
-      <Tab.Screen
-        options={{
-          tabBarButton: () => null,
-          tabBarIcon: () => null,
-        }}
-        name="ForgotPasswordScreen"
-        component={ForgotPasswordScreen}
-      />
-
-    {!isLoggedIn ? (
-        <Tab.Screen
-          options={{
-            tabBarButton: () => null,
-            tabBarIcon: () => null,
-    }}
-    name="SignUpForm"  
-    component={SignUpForm}
-  />
-) : null}
     </Tab.Navigator>
   );
 }
