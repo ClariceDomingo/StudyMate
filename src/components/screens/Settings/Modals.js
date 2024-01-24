@@ -1,6 +1,5 @@
 import {
   View,
-  Text,
   Modal,
   TextInput,
   StyleSheet,
@@ -8,31 +7,8 @@ import {
   ScrollView,
 } from "react-native";
 import React from "react";
-import { Button, List, Icon } from "react-native-paper";
+import { Text, Button, List, Icon } from "react-native-paper";
 import ColorPicker from "react-native-wheel-color-picker";
-
-// export function AddLabel({ visible, hideModal }) {
-//   const [text, onChangeText] = React.useState("");
-
-//   return (
-//     <Modal visible={visible} animationType="none" transparent={true}>
-//       <View style={styles.container}>
-//         <View style={styles.body}>
-//           <View style={styles.colorContainer}></View>
-//           <TextInput
-//             onChangeText={onChangeText}
-//             value={text}
-//             placeholder="Type Something..."
-//           />
-//           <Button onPress={hideModal}>Cancel</Button>
-//           <Button>Add</Button>
-//         </View>
-//       </View>
-//     </Modal>
-//   );
-// }
-
-
 
 // select App Home
 export function AppHome({ visible, hideModal, onSave }) {

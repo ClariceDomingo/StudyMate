@@ -1,5 +1,6 @@
 import React, { useLayoutEffect, useState } from "react";
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Text } from 'react-native-paper';
 import Spacing from "../../../constants/Spacing";
 import FontSize from "../../../constants/FontSize";
 import Colors from "../../../constants/Colors";

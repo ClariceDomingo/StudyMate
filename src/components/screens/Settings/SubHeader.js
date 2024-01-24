@@ -1,15 +1,6 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import React from 'react'
-import { Icon } from 'react-native-paper'
-
-// export function Labels() {
-//   return (
-//     <View style={styles.container}>
-//       <Icon source="label-outline" size={25}  />
-//       <Text style={styles.text}>Labels</Text>
-//     </View>
-//  )
-// }
+import { Text, Icon } from 'react-native-paper'
 
 export function General() {
   return (
