@@ -25,7 +25,7 @@ function HomeTabs() {
 
   return (
     <Tab.Navigator
-      initialRouteName="Task"
+      initialRouteName="Settings"
       screenOptions={({ route }) => ({        
         headerShown: false,
         tabBarStyle: { height: 55 },

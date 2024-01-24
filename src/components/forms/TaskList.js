@@ -27,7 +27,7 @@ const TaskList = ({ tasks, handleEditTask, handleToggleCompletion, handleDeleteT
                         onPress={() => setShowCompleted(!showCompleted)}
                     >
                         <Text style={styles.completedSectionHeaderText}>
-                            Completed {showCompleted ? "▼" : "▶"}
+                            Completed {showCompleted ? "▼" : "▲"}
                         </Text>
                     </TouchableOpacity>
 
