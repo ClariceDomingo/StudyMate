@@ -9,9 +9,6 @@ import ProfileScreen from "../screens/Profile/ProfileScreen";
 import SettingsScreen from "../screens/Settings/SettingsScreen";
 
 import LoginForm from "../../components/forms/LoginForm";
-import ForgotPasswordScreen from "../forms/ForgotPasswordForm";
-import SignUpForm from "../forms/SignUpForm"; 
-
 import Help from "../screens/Settings/Help";
 import About from "../screens/Settings/About";
 
@@ -28,7 +25,7 @@ function HomeTabs() {
 
   return (
     <Tab.Navigator
-      initialRouteName="Settings"
+      initialRouteName="Task"
       screenOptions={({ route }) => ({        
         headerShown: false,
         tabBarStyle: { height: 55, }, 
@@ -72,25 +69,7 @@ function HomeTabs() {
       )}
 
       {}
-      <Tab.Screen
-        options={{
-          tabBarButton: () => null,
-          tabBarIcon: () => null,
-        }}
-        name="ForgotPasswordScreen"
-        component={ForgotPasswordScreen}
-      />
-
-    {!isLoggedIn ? (
-        <Tab.Screen
-          options={{
-            tabBarButton: () => null,
-            tabBarIcon: () => null,
-    }}
-    name="SignUpForm"  
-    component={SignUpForm}
-  />
-) : null}
+      
     </Tab.Navigator>
   );
 }
