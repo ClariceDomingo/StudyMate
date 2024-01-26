@@ -12,9 +12,14 @@ const TaskModal = ({ modalVisible, task, setTask, handleAddTask, handleCancel, v
         setTask({ ...task, category: option.value });
     };
 
+    const handleDeleteCategoryPress = () => {
+        setNewCategory("");
+        setSelectedCategory("");
+        handleDeleteCategory(selectedCategory);
+    };
+
     return ( 
         <Modal visible={modalVisible} animationType="slide" transparent={false}> 
-        
         <View style={styles.modalContainer}> 
             <ScrollView showsVerticalScrollIndicator={false}>
                 <TextInput 
@@ -48,7 +53,7 @@ const TaskModal = ({ modalVisible, task, setTask, handleAddTask, handleCancel, v
                     {selectedCategory && (
                         <TouchableOpacity
                             style={styles.deleteCategoryButton}
-                            onPress={() => handleDeleteCategory(selectedCategory)}
+                            onPress={handleDeleteCategoryPress}
                         >
                             <Text style={styles.deleteCategoryButtonText}>Delete Category</Text>
                         </TouchableOpacity>

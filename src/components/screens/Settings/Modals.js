@@ -38,7 +38,8 @@ export function AppHome({ visible, hideModal, onSave }) {
             left={(props) => <List.Icon {...props} icon="arrow-left" />}
             onPress={hideModal}
             />
-          <ScrollView>
+
+          <ScrollView showsVerticalScrollIndicator={false}>
             {appHome.map((home) => (
               <TouchableOpacity
                 key={home.value}
@@ -92,6 +93,7 @@ export function Clock({ visible, hideModal, onSave }) {
             left={(props) => <List.Icon {...props} icon="arrow-left" />}
             onPress={hideModal}
           />
+
           {clockFormats.map((format) => (
             <TouchableOpacity
               key={format.value}

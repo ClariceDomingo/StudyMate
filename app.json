@@ -24,6 +24,7 @@
       },
       "package": "com.StudyMate"
     },
+    
     "web": {
       "favicon": "./assets/favicon.png"
     },

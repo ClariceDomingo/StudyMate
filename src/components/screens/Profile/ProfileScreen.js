@@ -1,47 +1,33 @@
-import React from "react";
-import { StyleSheet, Text, View, Image, SafeAreaView, StatusBar, Platform, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, TouchableOpacity, Image, SafeAreaView, StatusBar, Platform, StyleSheet } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Svg, { Circle, Text as SvgText } from "react-native-svg";
 
 const ProfileScreen = ({ route }) => {
   const [tasks, setTasks] = React.useState([]);
+  const [userName, setUserName] = React.useState("Keep plans for 44 days");
   const navigation = useNavigation();
 
   React.useEffect(() => {
     if (route.params?.updatedTasks) {
       setTasks(route.params.updatedTasks);
     }
-  }, [route.params?.updatedTasks]);
+    if (route.params?.name && route.params?.username) {
+      setUserName(`${route.params.name} (${route.params.username})`);
+    }
+  }, [route.params?.updatedTasks, route.params?.name, route.params?.username]);
 
-  const handleToggleCompletion = (taskId) => {
-    const updatedTasks = tasks.map((task) =>
-      task.id === taskId
-        ? { ...task, status: task.status === "Completed" ? "Pending" : "Completed" }
-        : task
-    );
-    setTasks(updatedTasks);
-  };
+  const calculateProgress = () => {
+    const completedTasks = tasks.filter((task) => task.status === "Completed").length;
+    const totalTasks = tasks.length;
 
-  const chartData = {
-    labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-    datasets: [
-      {
-        data: [
-          tasks.filter((task) => task.status === "Completed").length,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-        ],
-      },
-    ],
+    return totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
   };
 
   const navigateToLoginForm = () => {
-    navigation.navigate('LoginForm'); 
+    navigation.navigate("LoginForm");
   };
 
   return (
@@ -52,30 +38,49 @@ const ProfileScreen = ({ route }) => {
           style={styles.userPhoto}
         />
         <View style={styles.userInfo}>
-          <Text style={styles.userName}>Keep plans for 44 days</Text>
+          <Text style={styles.userName}>{userName}</Text>
           <TouchableOpacity onPress={navigateToLoginForm}>
-            <Text style={styles.userFollowers}>Click to login</Text>
+            <Text style={styles.userFollowers}>Enter Username</Text>
           </TouchableOpacity>
         </View>
       </View>
 
       <View style={styles.tasksContainer}>
         <View style={styles.tasksList}>
-          <Text style={styles.tasksHeading}>Completed Tasks</Text>
-          <Text style={styles.taskCount}>{tasks.filter((task) => task.status === "Completed").length}</Text>
+          <Text style={styles.tasksHeading}>COMPLETED TASKS</Text>
+          <Text style={styles.taskCount}>
+            {tasks.filter((task) => task.status === "Completed").length}
+          </Text>
         </View>
 
         <View style={styles.tasksList}>
-          <Text style={styles.tasksHeading}>Pending Tasks</Text>
-          <Text style={styles.taskCount}>{tasks.filter((task) => task.status === "Pending").length}</Text>
+          <Text style={styles.tasksHeading}>PENDING TASKS</Text>
+          <Text style={styles.taskCount}>
+            {tasks.filter((task) => task.status === "Pending").length}
+          </Text>
         </View>
       </View>
 
       <View style={styles.chartContainer}>
         <LineChart
-          data={chartData}
+          data={{
+            labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+            datasets: [
+              {
+                data: [
+                  tasks.filter((task) => task.status === "Completed").length,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                ],
+              },
+            ],
+          }}
           width={Dimensions.get("window").width - 40}
-          height={200}
+          height={250}
           chartConfig={{
             backgroundGradientFrom: "#f4f4f4",
             backgroundGradientTo: "#f4f4f4",
@@ -87,6 +92,23 @@ const ProfileScreen = ({ route }) => {
             },
           }}
         />
+        <Text style={styles.progressText}>Overall Progress:</Text>
+        <View style={styles.progressCircleContainer}>
+          <Svg height="150" width="150">
+            <Circle cx="75" cy="75" r="70" fill="transparent" stroke="#037662" strokeWidth="10" />
+            <SvgText
+              x="50%"
+              y="50%"
+              textAnchor="middle"
+              alignmentBaseline="middle"
+              fontSize="20"
+              fontWeight="bold"
+              fill="#037662"
+            >
+              {`${calculateProgress().toFixed(1)}%`}
+            </SvgText>
+          </Svg>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -146,6 +168,16 @@ const styles = StyleSheet.create({
   chartContainer: {
     marginTop: 40,
     paddingHorizontal: 20,
+  },
+  progressText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginTop: 30,
+    alignSelf: "center",
+  },
+  progressCircleContainer: {
+    alignItems: "center",
+    marginTop: 10,
   },
 });
 
