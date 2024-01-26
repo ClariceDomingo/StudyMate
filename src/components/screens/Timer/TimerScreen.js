@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Button, TextInput, Modal, TouchableHighlight } from 'react-native';
 import { Svg, Circle, G, Text as SvgText } from 'react-native-svg';
+import { Audio } from 'expo-av';
+import { NativeEventEmitter, NativeModules } from 'react-native';
 
 const Timer = () => {
   const [seconds, setSeconds] = useState(0);
@@ -10,6 +12,8 @@ const Timer = () => {
   const [inputMinutes, setInputMinutes] = useState('');
   const [inputSeconds, setInputSeconds] = useState('');
   const [textColor, setTextColor] = useState('black');
+  const [sound, setSound] = useState();
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     let interval;
@@ -18,13 +22,22 @@ const Timer = () => {
       interval = setInterval(() => {
         setSeconds((prevSeconds) => prevSeconds - 1);
       }, 1000);
-      setTextColor('red'); // Change the text color to red when the countdown starts
+      setTextColor('black');
+    } else if (isActive && seconds === 0) {
+      clearInterval(interval);
+      setIsActive(false);
+      setTextColor('black');
+      playSound();
+      setModalVisible(true); // Show the modal when the countdown reaches zero
     } else {
       clearInterval(interval);
       setIsActive(false);
     }
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      sound && sound.unloadAsync();
+    };
   }, [isActive, seconds]);
 
   const handleStartStop = () => {
@@ -34,7 +47,8 @@ const Timer = () => {
   const handleReset = () => {
     setSeconds(0);
     setIsActive(false);
-    setTextColor('black'); // Change the text color back to black when reset
+    setTextColor('black');
+    setModalVisible(false); // Close the modal when the timer is reset
   };
 
   const handleTimeChange = () => {
@@ -46,7 +60,7 @@ const Timer = () => {
     setTargetTime(totalSeconds);
     setSeconds(totalSeconds);
     setIsActive(false);
-    setTextColor('black'); // Change the text color back to black when setting a new time
+    setTextColor('black');
   };
 
   const formatTime = (timeInSeconds) => {
@@ -58,6 +72,19 @@ const Timer = () => {
     ).padStart(2, '0')}`;
   };
 
+  const playSound = async () => {
+    const { sound } = await Audio.Sound.createAsync(
+      require('../../../../assets/raw/alarm.mp3')
+    );
+    setSound(sound);
+    await sound.playAsync();
+  };
+
+  const stopSound = async () => {
+    setModalVisible(false);
+    sound && (await sound.stopAsync());
+  };
+
   return (
     <View style={styles.container}>
       <Svg height="200" width="200">
@@ -67,7 +94,7 @@ const Timer = () => {
             cy="100"
             r="90"
             strokeWidth="15"
-            stroke="#3498db"
+            stroke="#008B8B"
             fill="transparent"
           />
           <SvgText x="50%" y="50%" textAnchor="middle" fontSize="40" fill={textColor}>
@@ -77,40 +104,54 @@ const Timer = () => {
       </Svg>
 
       <View style={styles.inputContainer}>
-        <Text style={styles.labelText}>Hours: </Text>
+        <Text style={styles.labelText}>Hrs: </Text>
         <TextInput
           style={styles.input}
           keyboardType="numeric"
           value={inputHours.toString()}
           onChangeText={(text) => setInputHours(text)}
         />
-        <Text style={styles.labelText}>Minutes: </Text>
+        <Text style={styles.labelText}>Min: </Text>
         <TextInput
           style={styles.input}
           keyboardType="numeric"
           value={inputMinutes.toString()}
           onChangeText={(text) => setInputMinutes(text)}
         />
-        <Text style={styles.labelText}>Seconds: </Text>
+        <Text style={styles.labelText}>Sec: </Text>
         <TextInput
           style={styles.input}
           keyboardType="numeric"
           value={inputSeconds.toString()}
           onChangeText={(text) => setInputSeconds(text)}
         />
-
-
       </View>
 
       <View style={styles.buttonContainer}>
         <Button
           title={isActive ? 'Pause' : 'Start'}
           onPress={handleStartStop}
-          color={isActive ? '#FF6347' : '#008000'}
+          color={isActive ? '#626262' : '#008B8B'}
         />
-        <Button title="Reset" onPress={handleReset} />
-        <Button title="Set" onPress={handleTimeChange} color={'#fa2600'} />
+        <Button title="Reset" onPress={handleReset} color={"#008B8B"}/>
+        <Button title="Set" onPress={handleTimeChange} color={'#008B8B'} />
       </View>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          console.log('Modal has been closed.');
+        }}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalText}>Alarm!</Text>
+            <Button title="Stop" onPress={stopSound} color={'#008B8B'} />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -130,7 +171,7 @@ const styles = StyleSheet.create({
   input: {
     height: 50,
     width: 50,
-    borderColor: 'gray',
+    borderColor: 'black',
     borderWidth: 1,
     marginRight: 10,
     paddingHorizontal: 8,
@@ -145,7 +186,23 @@ const styles = StyleSheet.create({
   },
   labelText: {
     fontSize: 20,
-  }
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  modalText: {
+    fontSize: 24,
+    marginBottom: 20,
+  },
 });
 
 export default Timer;

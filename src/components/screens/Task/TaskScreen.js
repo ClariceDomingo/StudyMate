@@ -23,7 +23,7 @@ const TaskScreen = ({ route }) => {
   const [editingTask, setEditingTask] = useState(null);
   const [validationError, setValidationError] = useState(false);
   const [categories, setCategories] = useState([]);
-  const [filteredTasks, setFilteredTasks] = useState([]); 
+  const [filteredTasks, setFilteredTasks] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [newCategory, setNewCategory] = useState("");
 
@@ -150,8 +150,8 @@ const TaskScreen = ({ route }) => {
       });
       setModalVisible(false);
       setValidationError(false);
-
-      navigation.navigate('Task', { updatedTasks: [...tasks, updatedTask] });
+  
+      navigation.navigate('Profile', { updatedTasks: [...tasks, updatedTask] });
     } else {
       setValidationError(true);
     }
@@ -180,7 +180,7 @@ const TaskScreen = ({ route }) => {
     const updatedFilteredTasks = filteredTasks.filter((t) => t.id !== taskId);
     setFilteredTasks(updatedFilteredTasks);
 
-    navigation.navigate('Task', { updatedTasks });
+    navigation.navigate('Profile', { updatedTasks });
   }; 
 
   const handleToggleCompletion = (taskId) => { 
@@ -190,7 +190,7 @@ const TaskScreen = ({ route }) => {
     const updatedFilteredTasks = filteredTasks.map((t) => t.id === taskId ? { ...t, status: t.status === "Pending" ? "Completed" : "Pending", } : t );
     setFilteredTasks(updatedFilteredTasks);
 
-    navigation.navigate('Task', { updatedTasks });
+    navigation.navigate('Profile', { updatedTasks });
   };
 
   const handleFilterByCategory = (selectedCategory) => {

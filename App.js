@@ -9,7 +9,7 @@ import { MD3LightTheme as DefaultTheme, PaperProvider } from 'react-native-paper
 import MainNavigator from './src/components/navigation/MainNavigator';
 import LandingPage from "./src/components/forms/LandingPage";
 import colors from './src/config/colors';
-
+import { StyleSheet } from 'react-native';
 export default function App() {
   const theme = {
     ...DefaultTheme,

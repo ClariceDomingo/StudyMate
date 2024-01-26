@@ -41,7 +41,7 @@ const LoginScreen = () => {
             <Text
               style={{
                 fontSize: FontSize.xLarge,
-                color: Colors.primary,
+                color: 'black',
                 fontFamily: Font["poppins-bold"],
                 marginVertical: Spacing * 3,
               }}
