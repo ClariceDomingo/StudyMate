@@ -151,7 +151,7 @@ const TaskScreen = ({ route }) => {
       setModalVisible(false);
       setValidationError(false);
   
-      navigation.navigate('Tasks', { updatedTasks: [...tasks, updatedTask] });
+      navigation.navigate('Profile', { updatedTasks: [...tasks, updatedTask] });
     } else {
       setValidationError(true);
     }
@@ -180,7 +180,7 @@ const TaskScreen = ({ route }) => {
     const updatedFilteredTasks = filteredTasks.filter((t) => t.id !== taskId);
     setFilteredTasks(updatedFilteredTasks);
 
-    navigation.navigate('Tasks', { updatedTasks });
+    navigation.navigate('Profile', { updatedTasks });
   }; 
 
   const handleToggleCompletion = (taskId) => { 
@@ -190,7 +190,7 @@ const TaskScreen = ({ route }) => {
     const updatedFilteredTasks = filteredTasks.map((t) => t.id === taskId ? { ...t, status: t.status === "Pending" ? "Completed" : "Pending", } : t );
     setFilteredTasks(updatedFilteredTasks);
 
-    navigation.navigate('Tasks', { updatedTasks });
+    navigation.navigate('Profile', { updatedTasks });
   };
 
   const handleFilterByCategory = (selectedCategory) => {
