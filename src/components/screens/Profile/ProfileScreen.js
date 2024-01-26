@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, Image, SafeAreaView, StatusBar, Platform, StyleSheet } from "react-native";
-import { BarChart } from "react-native-chart-kit";  // Import BarChart
+import { BarChart } from "react-native-chart-kit";  
 import { Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Svg, { Circle, Text as SvgText } from "react-native-svg";
@@ -30,6 +30,8 @@ const ProfileScreen = ({ route }) => {
   const navigateToLoginForm = () => {
     navigation.navigate("LoginForm");
   };
+
+  const totalCompletedAndPending = tasks.filter((task) => task.status === "Completed" || task.status === "Pending").length;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -65,12 +67,12 @@ const ProfileScreen = ({ route }) => {
       <View style={styles.chartContainer}>
         <BarChart
           data={{
-            labels: ["Prod", "Consis", "UH"],
+            labels: ["Productivity", "Consistency", "Unproductive Hours"],
             datasets: [
               {
                 data: [
                   tasks.filter((task) => task.status === "Completed").length,
-                  tasks.filter((task) => task.category === "Consis" && task.status === "Completed").length,
+                  totalCompletedAndPending,  
                   tasks.filter((task) => task.status === "Pending").length,
                 ],
               },
@@ -89,7 +91,7 @@ const ProfileScreen = ({ route }) => {
             },
           }}
         />
-        <Text style={styles.progressText}>Overall Progress:</Text>
+        <Text style={styles.progressText}>Overall Progress: </Text>
         <View style={styles.progressCircleContainer}>
           <Svg height="150" width="150">
             <Circle cx="75" cy="75" r="70" fill="transparent" stroke="#008B8B" strokeWidth="10" />
@@ -110,6 +112,7 @@ const ProfileScreen = ({ route }) => {
     </SafeAreaView>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
