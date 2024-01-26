@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, Image, SafeAreaView, StatusBar, Platform, StyleSheet } from "react-native";
-import { BarChart } from "react-native-chart-kit";  // Import BarChart
+import { BarChart } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Svg, { Circle, Text as SvgText } from "react-native-svg";
@@ -21,9 +21,10 @@ const ProfileScreen = ({ route }) => {
 
   const calculateProgress = () => {
     const completedTasks = tasks.filter((task) => task.status === "Completed").length;
+    const completedConsisTasks = tasks.filter((task) => task.category === "Consis" && task.status === "Completed").length;
     const totalTasks = tasks.length;
 
-    return totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
+    return totalTasks > 0 ? ((completedTasks + completedConsisTasks) / totalTasks) * 100 : 0;
   };
 
   const navigateToLoginForm = () => {
@@ -62,20 +63,15 @@ const ProfileScreen = ({ route }) => {
       </View>
 
       <View style={styles.chartContainer}>
-        {/* Replace LineChart with BarChart */}
         <BarChart
           data={{
-            labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+            labels: ["Prod", "Consis", "UH"],
             datasets: [
               {
                 data: [
                   tasks.filter((task) => task.status === "Completed").length,
-                  0,
-                  0,
-                  0,
-                  0,
-                  0,
-                  0,
+                  tasks.filter((task) => task.category === "Consis" && task.status === "Completed").length,
+                  tasks.filter((task) => task.status === "Pending").length,
                 ],
               },
             ],
@@ -114,7 +110,6 @@ const ProfileScreen = ({ route }) => {
     </SafeAreaView>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

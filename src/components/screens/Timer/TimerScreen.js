@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Button, TextInput, Modal, TouchableHighlight } from 'react-native';
 import { Svg, Circle, G, Text as SvgText } from 'react-native-svg';
+import { Audio } from 'expo-av';
+import { NativeEventEmitter, NativeModules } from 'react-native';
 
 const Timer = () => {
   const [seconds, setSeconds] = useState(0);
@@ -10,6 +12,8 @@ const Timer = () => {
   const [inputMinutes, setInputMinutes] = useState('');
   const [inputSeconds, setInputSeconds] = useState('');
   const [textColor, setTextColor] = useState('black');
+  const [sound, setSound] = useState();
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     let interval;
@@ -18,13 +22,22 @@ const Timer = () => {
       interval = setInterval(() => {
         setSeconds((prevSeconds) => prevSeconds - 1);
       }, 1000);
-      setTextColor('red'); // Change the text color to red when the countdown starts
+      setTextColor('red');
+    } else if (isActive && seconds === 0) {
+      clearInterval(interval);
+      setIsActive(false);
+      setTextColor('black');
+      playSound();
+      setModalVisible(true); // Show the modal when the countdown reaches zero
     } else {
       clearInterval(interval);
       setIsActive(false);
     }
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      sound && sound.unloadAsync();
+    };
   }, [isActive, seconds]);
 
   const handleStartStop = () => {
@@ -34,7 +47,8 @@ const Timer = () => {
   const handleReset = () => {
     setSeconds(0);
     setIsActive(false);
-    setTextColor('black'); // Change the text color back to black when reset
+    setTextColor('black');
+    setModalVisible(false); // Close the modal when the timer is reset
   };
 
   const handleTimeChange = () => {
@@ -46,7 +60,7 @@ const Timer = () => {
     setTargetTime(totalSeconds);
     setSeconds(totalSeconds);
     setIsActive(false);
-    setTextColor('black'); // Change the text color back to black when setting a new time
+    setTextColor('black');
   };
 
   const formatTime = (timeInSeconds) => {
@@ -56,6 +70,19 @@ const Timer = () => {
     return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(
       remainingSeconds
     ).padStart(2, '0')}`;
+  };
+
+  const playSound = async () => {
+    const { sound } = await Audio.Sound.createAsync(
+      require('../../../../assets/raw/alarm.mp3')
+    );
+    setSound(sound);
+    await sound.playAsync();
+  };
+
+  const stopSound = async () => {
+    setModalVisible(false);
+    sound && (await sound.stopAsync());
   };
 
   return (
@@ -98,8 +125,6 @@ const Timer = () => {
           value={inputSeconds.toString()}
           onChangeText={(text) => setInputSeconds(text)}
         />
-
-
       </View>
 
       <View style={styles.buttonContainer}>
@@ -111,6 +136,22 @@ const Timer = () => {
         <Button title="Reset" onPress={handleReset} />
         <Button title="Set" onPress={handleTimeChange} color={'#fa2600'} />
       </View>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          console.log('Modal has been closed.');
+        }}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalText}>Alarm!</Text>
+            <Button title="Stop" onPress={stopSound} />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -145,7 +186,23 @@ const styles = StyleSheet.create({
   },
   labelText: {
     fontSize: 20,
-  }
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  modalText: {
+    fontSize: 24,
+    marginBottom: 20,
+  },
 });
 
 export default Timer;

@@ -23,7 +23,7 @@ const TaskScreen = ({ route }) => {
   const [editingTask, setEditingTask] = useState(null);
   const [validationError, setValidationError] = useState(false);
   const [categories, setCategories] = useState([]);
-  const [filteredTasks, setFilteredTasks] = useState([]); 
+  const [filteredTasks, setFilteredTasks] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [newCategory, setNewCategory] = useState("");
 
@@ -311,4 +311,3 @@ const TaskScreen = ({ route }) => {
 };
 
 export default TaskScreen;
-
