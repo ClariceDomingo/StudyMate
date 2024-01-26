@@ -22,7 +22,7 @@ const Timer = () => {
       interval = setInterval(() => {
         setSeconds((prevSeconds) => prevSeconds - 1);
       }, 1000);
-      setTextColor('red');
+      setTextColor('black');
     } else if (isActive && seconds === 0) {
       clearInterval(interval);
       setIsActive(false);
@@ -94,7 +94,7 @@ const Timer = () => {
             cy="100"
             r="90"
             strokeWidth="15"
-            stroke="#3498db"
+            stroke="#008B8B"
             fill="transparent"
           />
           <SvgText x="50%" y="50%" textAnchor="middle" fontSize="40" fill={textColor}>
@@ -104,21 +104,21 @@ const Timer = () => {
       </Svg>
 
       <View style={styles.inputContainer}>
-        <Text style={styles.labelText}>Hours: </Text>
+        <Text style={styles.labelText}>Hrs: </Text>
         <TextInput
           style={styles.input}
           keyboardType="numeric"
           value={inputHours.toString()}
           onChangeText={(text) => setInputHours(text)}
         />
-        <Text style={styles.labelText}>Minutes: </Text>
+        <Text style={styles.labelText}>Min: </Text>
         <TextInput
           style={styles.input}
           keyboardType="numeric"
           value={inputMinutes.toString()}
           onChangeText={(text) => setInputMinutes(text)}
         />
-        <Text style={styles.labelText}>Seconds: </Text>
+        <Text style={styles.labelText}>Sec: </Text>
         <TextInput
           style={styles.input}
           keyboardType="numeric"
@@ -131,10 +131,10 @@ const Timer = () => {
         <Button
           title={isActive ? 'Pause' : 'Start'}
           onPress={handleStartStop}
-          color={isActive ? '#FF6347' : '#008000'}
+          color={isActive ? '#626262' : '#008B8B'}
         />
-        <Button title="Reset" onPress={handleReset} />
-        <Button title="Set" onPress={handleTimeChange} color={'#fa2600'} />
+        <Button title="Reset" onPress={handleReset} color={"#008B8B"}/>
+        <Button title="Set" onPress={handleTimeChange} color={'#008B8B'} />
       </View>
 
       <Modal
@@ -148,7 +148,7 @@ const Timer = () => {
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <Text style={styles.modalText}>Alarm!</Text>
-            <Button title="Stop" onPress={stopSound} />
+            <Button title="Stop" onPress={stopSound} color={'#008B8B'} />
           </View>
         </View>
       </Modal>
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   input: {
     height: 50,
     width: 50,
-    borderColor: 'gray',
+    borderColor: 'black',
     borderWidth: 1,
     marginRight: 10,
     paddingHorizontal: 8,
