@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
+import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -13,8 +14,8 @@ export default function App() {
   const theme = {
     ...DefaultTheme,
     colors: colors.colors,
-    mode: 'adaptive',
-  }
+    mode: "adaptive",
+  };
 
   const [showLandingPage, setShowLandingPage] = useState(true);
 

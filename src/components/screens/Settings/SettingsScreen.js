@@ -8,21 +8,19 @@ import { AppHome, Clock } from "./Modals";
 
 export default function SettingsScreen() {
   // Switches
-  const [isSwitchOn1, setIsSwitchOn1] = React.useState(false); // auto start of next work
-  const [isSwitchOn2, setIsSwitchOn2] = React.useState(false); // auto start of next break
-  const [fullScreen, setFullScreen] = React.useState(false); // Full screen timer
-  const [isSwitchOn7, setIsSwitchOn7] = React.useState(false); // Disable Internet
-  const [isSwitchOn8, setIsSwitchOn8] = React.useState(false); // Session almost done Warning
-  const [isSwitchOn9, setIsSwitchOn9] = React.useState(false); // Break almost done Warning
+  // const [isSwitchOn1, setIsSwitchOn1] = React.useState(false); // auto start of next work
+  // const [isSwitchOn2, setIsSwitchOn2] = React.useState(false); // auto start of next break
+  // const [fullScreen, setFullScreen] = React.useState(false); // Full screen timer
+  // const [isSwitchOn7, setIsSwitchOn7] = React.useState(false); // Disable Internet
+  // const [isSwitchOn8, setIsSwitchOn8] = React.useState(false); // Session almost done Warning
+  // const [isSwitchOn9, setIsSwitchOn9] = React.useState(false); // Break almost done Warning
 
-  const onToggleSwitch1 = () => setIsSwitchOn1(!isSwitchOn1);
-  const onToggleSwitch2 = () => setIsSwitchOn2(!isSwitchOn2);
-
-  const toggleFullScreen = () => setFullScreen(!fullScreen);
-
-  const onToggleSwitch7 = () => setIsSwitchOn7(!isSwitchOn7);
-  const onToggleSwitch8 = () => setIsSwitchOn8(!isSwitchOn8);
-  const onToggleSwitch9 = () => setIsSwitchOn9(!isSwitchOn9);
+  // const onToggleSwitch1 = () => setIsSwitchOn1(!isSwitchOn1);
+  // const onToggleSwitch2 = () => setIsSwitchOn2(!isSwitchOn2);
+  // const toggleFullScreen = () => setFullScreen(!fullScreen);
+  // const onToggleSwitch7 = () => setIsSwitchOn7(!isSwitchOn7);
+  // const onToggleSwitch8 = () => setIsSwitchOn8(!isSwitchOn8);
+  // const onToggleSwitch9 = () => setIsSwitchOn9(!isSwitchOn9);
 
   // Modals
   const [clockVisible, setClockVisible] = React.useState(false);
@@ -85,7 +83,7 @@ export default function SettingsScreen() {
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-        <General />
+        {/* <General />
         <View style={styles.indention}>
           <List.Item
             title="App Home"
@@ -104,26 +102,6 @@ export default function SettingsScreen() {
         <Timer />
         <View style={styles.indention}>
           <List.Item
-            title="Auto Start of Next Work"
-            right={() => (
-              <Switch
-                value={isSwitchOn1}
-                onValueChange={onToggleSwitch1}
-                style={styles.switch}
-              />
-            )}
-          />
-          <List.Item
-            title="Auto Start of Next Break"
-            right={() => (
-              <Switch
-                value={isSwitchOn2}
-                onValueChange={onToggleSwitch2}
-                style={styles.switch}
-              />
-            )}
-          />
-          <List.Item
             title="Full Screen Timer"
             right={() => (
               <Switch
@@ -134,9 +112,9 @@ export default function SettingsScreen() {
             )}
           />
           <List.Item title="Custom Quotes" />
-        </View>
+        </View> */}
 
-        <DeepFocusMode />
+        {/* <DeepFocusMode />
         <View style={styles.indention}>
           <List.Item
             title="In-app Panel Disable Internet"
@@ -148,9 +126,9 @@ export default function SettingsScreen() {
               />
             )}
           />
-        </View>
+        </View> */}
 
-        <Notifications />
+        {/* <Notifications />
         <View style={styles.indention}>
           <List.Item
             title="Session Almost Over Warning"
@@ -173,7 +151,7 @@ export default function SettingsScreen() {
             )}
           />
           <List.Item title="Manage Notifications" />
-        </View>
+        </View> */}
 
         <Help />
         <View style={styles.indention}>

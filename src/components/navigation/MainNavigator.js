@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Icon } from "react-native-paper";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import TaskScreen from "../screens/Task/TaskScreen";
 import TimerScreen from "../screens/Timer/TimerScreen";
 import ProfileScreen from "../screens/Profile/ProfileScreen";
 import SettingsScreen from "../screens/Settings/SettingsScreen";
+import LoginForm from '../forms/LoginForm';
 
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
 
 export default function MainNavigator() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,7 +21,7 @@ export default function MainNavigator() {
   return (
     <Tab.Navigator
       initialRouteName="Task"
-      screenOptions={({ route }) => ({        
+      screenOptions={({ route }) => ({      
         headerShown: false,
         tabBarStyle: { height: 55 }, 
         tabBarIcon: ({ focused, color, size }) => {
