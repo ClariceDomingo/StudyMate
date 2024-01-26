@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, Image, SafeAreaView, StatusBar, Platform, StyleSheet } from "react-native";
-import { BarChart } from "react-native-chart-kit";
+import { BarChart } from "react-native-chart-kit";  // Import BarChart
 import { Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Svg, { Circle, Text as SvgText } from "react-native-svg";
