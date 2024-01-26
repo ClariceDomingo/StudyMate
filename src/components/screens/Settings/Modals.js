@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import React from "react";
 import { Text, Button, List, Icon } from "react-native-paper";
-import ColorPicker from "react-native-wheel-color-picker";
 
 // select App Home
 export function AppHome({ visible, hideModal, onSave }) {
@@ -37,7 +36,7 @@ export function AppHome({ visible, hideModal, onSave }) {
             title="Clock"
             left={(props) => <List.Icon {...props} icon="arrow-left" />}
             onPress={hideModal}
-            />
+          />
 
           <ScrollView showsVerticalScrollIndicator={false}>
             {appHome.map((home) => (
@@ -57,14 +56,13 @@ export function AppHome({ visible, hideModal, onSave }) {
                 )}
               </TouchableOpacity>
             ))}
-            </ScrollView>
+          </ScrollView>
           <Button onPress={handleAppHomeSubmission}>Set</Button>
         </View>
       </View>
     </Modal>
   );
 }
-
 
 // select clock format
 export function Clock({ visible, hideModal, onSave }) {
@@ -117,7 +115,6 @@ export function Clock({ visible, hideModal, onSave }) {
     </Modal>
   );
 }
-
 
 const transparent = "rgba(0, 0, 0, 0.5)";
 
