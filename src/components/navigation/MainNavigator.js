@@ -8,15 +8,11 @@ import TimerScreen from "../screens/Timer/TimerScreen";
 import ProfileScreen from "../screens/Profile/ProfileScreen";
 import SettingsScreen from "../screens/Settings/SettingsScreen";
 
-import LoginForm from "../../components/forms/LoginForm";
-import Help from "../screens/Settings/Help";
-import About from "../screens/Settings/About";
-
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-function HomeTabs() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+export default function MainNavigator() {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     // Add your logic to check the user's login state
@@ -28,11 +24,10 @@ function HomeTabs() {
       initialRouteName="Task"
       screenOptions={({ route }) => ({        
         headerShown: false,
-        tabBarStyle: { height: 55, }, 
+        tabBarStyle: { height: 55 }, 
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          // Set the icon name based on the route
           if (route.name === 'Profile') {
             iconName = focused ? 'account' : 'account-outline';
           } else if (route.name === 'Task') {
@@ -43,18 +38,19 @@ function HomeTabs() {
             iconName = focused ? 'cog' : 'cog-outline';
           }
 
-          // You can return any component here
           return <Icon source={iconName} size={30} color={color} />;
         },
-        
-        tabBarActiveTintColor: 'black',
-        tabBarInactiveTintColor: 'gray',
+
+        tabBarIconStyle: { marginTop: 5 },
+        tabBarActiveTintColor: '#0a4f4f',
+        tabBarInactiveTintColor: 'rgba(0, 0, 0, 0.8)',
+        tabBarLabelStyle: { color: 'black', fontSize: 12, marginBottom: 5 },
       })}
     >  
       <Tab.Screen name="Profile" component={ProfileScreen} />
       <Tab.Screen name="Task" component={TaskScreen} />
       <Tab.Screen name="Timer" component={TimerScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} options={{ headerShown: true }} />
+      <Tab.Screen name="Settings" component={SettingsScreen} />
 
       {}
       {isLoggedIn ? null : (
@@ -71,15 +67,5 @@ function HomeTabs() {
       {}
       
     </Tab.Navigator>
-  );
-}
-
-export default function MainNavigator() {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name='tab' component={HomeTabs} />
-      <Stack.Screen name='Help' component={Help} />
-      <Stack.Screen name='About' component={About} />
-    </Stack.Navigator>
   );
 }
