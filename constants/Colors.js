@@ -1,8 +1,8 @@
-const white = "lightpink";
+const white = "white";
 const black = "#000";
 const dark = "#626262";
-const blue = "black";
-const gray = "#ECECECsss";
+const blue = "#008B8B";
+const gray = "#ECECEC";
 const lightBlue = "#f1f4ff";
 
 export default {

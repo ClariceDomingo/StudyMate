@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, Image, SafeAreaView, StatusBar, Platform, StyleSheet } from "react-native";
-import { LineChart } from "react-native-chart-kit";
+import { BarChart } from "react-native-chart-kit";  // Import BarChart
 import { Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Svg, { Circle, Text as SvgText } from "react-native-svg";
@@ -47,14 +47,14 @@ const ProfileScreen = ({ route }) => {
 
       <View style={styles.tasksContainer}>
         <View style={styles.tasksList}>
-          <Text style={styles.tasksHeading}>COMPLETED TASKS</Text>
+          <Text style={styles.tasksHeading}>COMPLETED</Text>
           <Text style={styles.taskCount}>
             {tasks.filter((task) => task.status === "Completed").length}
           </Text>
         </View>
 
         <View style={styles.tasksList}>
-          <Text style={styles.tasksHeading}>PENDING TASKS</Text>
+          <Text style={styles.tasksHeading}>PENDING</Text>
           <Text style={styles.taskCount}>
             {tasks.filter((task) => task.status === "Pending").length}
           </Text>
@@ -62,7 +62,8 @@ const ProfileScreen = ({ route }) => {
       </View>
 
       <View style={styles.chartContainer}>
-        <LineChart
+        {/* Replace LineChart with BarChart */}
+        <BarChart
           data={{
             labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
             datasets: [
@@ -95,7 +96,7 @@ const ProfileScreen = ({ route }) => {
         <Text style={styles.progressText}>Overall Progress:</Text>
         <View style={styles.progressCircleContainer}>
           <Svg height="150" width="150">
-            <Circle cx="75" cy="75" r="70" fill="transparent" stroke="#037662" strokeWidth="10" />
+            <Circle cx="75" cy="75" r="70" fill="transparent" stroke="#008B8B" strokeWidth="10" />
             <SvgText
               x="50%"
               y="50%"
@@ -103,7 +104,7 @@ const ProfileScreen = ({ route }) => {
               alignmentBaseline="middle"
               fontSize="20"
               fontWeight="bold"
-              fill="#037662"
+              fill="#008B8B"
             >
               {`${calculateProgress().toFixed(1)}%`}
             </SvgText>
