@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, TextInput, Modal, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Button, Modal, TouchableHighlight } from 'react-native';
 import { Svg, Circle, G, Text as SvgText } from 'react-native-svg';
 import { Audio } from 'expo-av';
 import { NativeEventEmitter, NativeModules } from 'react-native';
@@ -87,13 +87,13 @@ const Timer = () => {
 
   return (
     <View style={styles.container}>
-      <Svg height="200" width="200">
-        <G origin="100,100">
+      <Svg height="350" width="350">
+        <G origin="500,500">
           <Circle
-            cx="100"
-            cy="100"
-            r="90"
-            strokeWidth="15"
+            cx="175"
+            cy="175"
+            r="150"
+            strokeWidth="4"
             stroke="#008B8B"
             fill="transparent"
           />
@@ -133,8 +133,8 @@ const Timer = () => {
           onPress={handleStartStop}
           color={isActive ? '#626262' : '#008B8B'}
         />
-        <Button title="Reset" onPress={handleReset} color={"#008B8B"}/>
         <Button title="Set" onPress={handleTimeChange} color={'#008B8B'} />
+        <Button title="Reset" onPress={handleReset} color={"#D24545"}/>
       </View>
 
       <Modal
@@ -147,8 +147,8 @@ const Timer = () => {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalText}>Alarm!</Text>
-            <Button title="Stop" onPress={stopSound} color={'#008B8B'} />
+            <Text style={styles.modalText}>Session is Done!</Text>
+            <Button title="STOP" onPress={stopSound} color={"#008B8B"} />
           </View>
         </View>
       </Modal>
@@ -169,13 +169,13 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   input: {
-    height: 50,
+    height: 40,
     width: 50,
-    borderColor: 'black',
+    borderColor: 'rgba(0, 0, 0, 0.3)',
     borderWidth: 1,
     marginRight: 10,
     paddingHorizontal: 8,
-    fontSize: 30,
+    fontSize: 20,
   },
   buttonContainer: {
     flexDirection: 'column',
@@ -184,8 +184,14 @@ const styles = StyleSheet.create({
     height: '20%',
     marginTop: 10,
   },
+
+  btnButton: { 
+    height: 30,
+    borderRadius: 20,
+  },
+
   labelText: {
-    fontSize: 20,
+    fontSize: 18,
   },
   modalContainer: {
     flex: 1,
@@ -194,13 +200,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
+    justifyContent: 'center',
     backgroundColor: 'white',
     padding: 20,
-    borderRadius: 10,
+    borderRadius: 30,
     alignItems: 'center',
+    height: 150,
+    width: 200,
   },
   modalText: {
-    fontSize: 24,
+    fontSize: 20,
     marginBottom: 20,
   },
 });
