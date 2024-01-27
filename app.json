@@ -24,7 +24,6 @@
       },
       "package": "com.StudyMate"
     },
-    
     "web": {
       "favicon": "./assets/favicon.png"
     },
@@ -32,6 +31,7 @@
       "eas": {
         "projectId": "d16c1105-cac1-4cb1-8420-2791d8ad0830"
       }
-    }
+    },
+    "runtimeVersion": "41.0.0" 
   }
 }
