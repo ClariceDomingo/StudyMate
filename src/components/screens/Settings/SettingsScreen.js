@@ -67,7 +67,7 @@ export default function SettingsScreen() {
       const result = await Share.share({
         message: 'Check out this app on the Play Store: https://play.google.com/store/apps/details?id=com.netmarble.tog&pcampaignid=web_share',
         title: 'Share App',
-        url: 'https://play.google.com/store/apps/details?id=com.netmarble.tog&pcampaignid=web_share',
+        url: 'https://expo.dev/accounts/claricedomingo/projects/StudyMate/builds',
       });
       
       if (result.action === Share.sharedAction) {
