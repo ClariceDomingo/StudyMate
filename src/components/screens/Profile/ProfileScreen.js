@@ -7,7 +7,7 @@ import Svg, { Circle, Text as SvgText } from "react-native-svg";
 
 const ProfileScreen = ({ route }) => {
   const [tasks, setTasks] = React.useState([]);
-  const [userName, setUserName] = React.useState("Keep plans for 44 days");
+  const [userName, setUserName] = React.useState("Welcome!");
   const navigation = useNavigation();
 
   React.useEffect(() => {
@@ -15,7 +15,11 @@ const ProfileScreen = ({ route }) => {
       setTasks(route.params.updatedTasks);
     }
     if (route.params?.name && route.params?.username) {
-      setUserName(`${route.params.name} (${route.params.username})`);
+      setUserName(
+        <Text style={{ color: "#008B8B" }}>
+        {`${route.params.name} (${route.params.username})`}
+      </Text>
+      );
     }
   }, [route.params?.updatedTasks, route.params?.name, route.params?.username]);
 
