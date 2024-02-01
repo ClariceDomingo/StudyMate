@@ -14,8 +14,6 @@ export default function MainNavigator() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Add your logic to check the user's login state
-    // Example: AsyncStorage.getItem("isLoggedIn").then(value => setIsLoggedIn(!!value));
   }, []);
 
   return (
